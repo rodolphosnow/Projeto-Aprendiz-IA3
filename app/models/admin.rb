@@ -1,6 +1,4 @@
-class User < ActiveRecord::Base
-  belongs_to :userable, polymorphic: true
-  has_one :address
+class Admin < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
