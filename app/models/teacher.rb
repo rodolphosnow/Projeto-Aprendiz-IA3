@@ -1,3 +1,3 @@
-class Apprentice < ActiveRecord::Base
+class Teacher < ActiveRecord::Base
   has_one :user, as: :userable, dependent: :destroy
 end

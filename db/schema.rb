@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020001750) do
+ActiveRecord::Schema.define(version: 20161020003029) do
 
   create_table "apprentices", force: :cascade do |t|
     t.string   "code"
@@ -22,6 +22,34 @@ ActiveRecord::Schema.define(version: 20161020001750) do
   end
 
   add_index "apprentices", ["userable_type", "userable_id"], name: "index_apprentices_on_userable_type_and_userable_id"
+
+  create_table "companies", force: :cascade do |t|
+    t.integer  "userable_id"
+    t.string   "userable_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "companies", ["userable_type", "userable_id"], name: "index_companies_on_userable_type_and_userable_id"
+
+  create_table "responsibles", force: :cascade do |t|
+    t.integer  "userable_id"
+    t.string   "userable_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "responsibles", ["userable_type", "userable_id"], name: "index_responsibles_on_userable_type_and_userable_id"
+
+  create_table "teachers", force: :cascade do |t|
+    t.string   "code"
+    t.integer  "userable_id"
+    t.string   "userable_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "teachers", ["userable_type", "userable_id"], name: "index_teachers_on_userable_type_and_userable_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -47,5 +75,6 @@ ActiveRecord::Schema.define(version: 20161020001750) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["userable_id", "userable_type"], name: "index_users_on_userable_id_and_userable_type"
+  add_index "users", ["userable_type", "userable_id"], name: "index_users_on_userable_type_and_userable_id"
 
 end

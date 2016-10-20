@@ -6,8 +6,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :lastname
       t.string :identifier
       t.datetime :birthdate
-      t.integer :userable_id
-      t.string  :userable_type
+      t.references :userable, polymorphic: true, index: true
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
