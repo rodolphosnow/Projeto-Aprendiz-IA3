@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020014524) do
+ActiveRecord::Schema.define(version: 20161020020209) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 20161020014524) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
+  create_table "apprentice_courses", force: :cascade do |t|
+    t.integer  "apprentice_id"
+    t.integer  "course_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "apprentice_courses", ["apprentice_id"], name: "index_apprentice_courses_on_apprentice_id"
+  add_index "apprentice_courses", ["course_id"], name: "index_apprentice_courses_on_course_id"
+
   create_table "apprentices", force: :cascade do |t|
     t.string   "code"
     t.integer  "userable_id"
@@ -57,14 +67,26 @@ ActiveRecord::Schema.define(version: 20161020014524) do
 
   add_index "apprentices", ["userable_type", "userable_id"], name: "index_apprentices_on_userable_type_and_userable_id"
 
+  create_table "classroom_presences", force: :cascade do |t|
+    t.integer  "classroom_students_id"
+    t.datetime "data"
+    t.boolean  "first"
+    t.boolean  "second"
+    t.boolean  "third"
+    t.boolean  "fourth"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
   create_table "classroom_students", force: :cascade do |t|
     t.integer  "classroom_id"
     t.integer  "apprentice_id"
     t.integer  "teacher_id"
     t.datetime "started_at"
     t.datetime "ends_in"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "status",        default: "in-progress"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   add_index "classroom_students", ["apprentice_id"], name: "index_classroom_students_on_apprentice_id"
@@ -122,6 +144,14 @@ ActiveRecord::Schema.define(version: 20161020014524) do
 
   add_index "responsibles", ["apprentice_id"], name: "index_responsibles_on_apprentice_id"
   add_index "responsibles", ["userable_type", "userable_id"], name: "index_responsibles_on_userable_type_and_userable_id"
+
+  create_table "subject_evaluations", force: :cascade do |t|
+    t.integer  "subject_id"
+    t.string   "criterion"
+    t.string   "grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "subjects", force: :cascade do |t|
     t.string   "name"
